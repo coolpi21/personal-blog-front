@@ -1,12 +1,18 @@
 <template>
     <div>
-        这里是登陆后的编辑页面
+        <el-button @click="onNewBlog">新增博客</el-button>
+<!--        <router-view></router-view>-->
     </div>
 </template>
 
 <script>
     export default {
-        name: "edit"
+        name: "edit",
+        methods: {
+            onNewBlog () {
+                this.$router.push('/new')
+            }
+        }
     }
 </script>
 

@@ -4,7 +4,7 @@
             <router-link
                     :to="{path: '/detail', query: {id:`${item.id}`}}"
                     class="list-title"
-            >123</router-link>
+            >{{item.title}}</router-link>
             <p>{{item.createtime}}</p>
         </div>
     </div>
