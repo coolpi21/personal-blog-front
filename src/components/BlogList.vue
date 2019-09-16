@@ -4,8 +4,10 @@
             <router-link
                     :to="{path: '/detail', query: {id:`${item.id}`}}"
                     class="list-title"
-            >{{item.title}}</router-link>
-            <p>{{item.createtime}}</p>
+            >{{item.title}}
+            </router-link>
+            <p v-show="isShowCreateTime">{{item.createtime}}</p>
+            <el-button v-if="isShowBtn" @click="onDelBlog(item.id)">删除</el-button>
         </div>
     </div>
 </template>
@@ -15,26 +17,51 @@
 
     export default {
         name: "BlogList",
+        props: {
+            isShowCreateTime: {
+                type: Boolean,
+                default: true
+            },
+            isShowBtn: {
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
             return {
                 list: []
             }
         },
         methods: {
-          onGoToDetailPage (id) {
-              this.$router.push({
-                  path: '/detail',
-                  query: {
-                      id: `${id}`
-                  }
-              })
-          }
+            onGoToDetailPage(id) {
+                this.$router.push({
+                    path: '/detail',
+                    query: {
+                        id: `${id}`
+                    }
+                })
+            },
+            onDelBlog(id) {
+                console.log(id)
+                axios.post(`http://localhost:8000/api/blog/del?id=${id}`).then(result => {
+                    if (result.data.errno === 0) {
+                        this.$message('删除博客成功')
+                        this.init()
+                    } else {
+                        this.$message('删除博客失败')
+                    }
+
+                })
+            },
+            init () {
+                axios.get('http://localhost:8000/api/blog/list').then(result => {
+                    const list = result.data.data
+                    this.list = list
+                })
+            }
         },
         mounted() {
-            axios.get('http://localhost:8000/api/blog/list').then(result => {
-                const list = result.data.data
-                this.list = list
-            })
+            this.init()
         }
 
     }

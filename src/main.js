@@ -12,6 +12,7 @@ Vue.prototype.$message = Message
 
 
 const router = new vueRouter({
+  mode: 'history',
   routes
 })
 
