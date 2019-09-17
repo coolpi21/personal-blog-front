@@ -3,7 +3,7 @@ import BlogList from "../src/components/BlogList";
 import admin from '../src/components/admin'
 import edit from '../src/components/edit'
 import newBlog from '../src/components/new'
-
+import updateBlog from '../src/components/update'
 
 const routes = [
     {path: '/', redirect: '/blog'},
@@ -14,6 +14,10 @@ const routes = [
     {
         path: '/new',
         component: newBlog
+    },
+    {
+        path: '/update',
+        component: updateBlog
     }
 ]
 

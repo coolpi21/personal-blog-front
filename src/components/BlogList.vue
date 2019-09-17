@@ -7,6 +7,7 @@
             >{{item.title}}
             </router-link>
             <p v-show="isShowCreateTime">{{item.createtime}}</p>
+            <el-button v-if="isShowBtn" @click="onUpdateBlog(item.id)">更新</el-button>
             <el-button v-if="isShowBtn" @click="onDelBlog(item.id)">删除</el-button>
         </div>
     </div>
@@ -52,6 +53,14 @@
                     }
 
                 })
+            },
+            onUpdateBlog(id) {
+              this.$router.push({
+                  path: '/update',
+                  query: {
+                      id: id
+                  }
+              })
             },
             init () {
                 axios.get('http://localhost:8000/api/blog/list').then(result => {
